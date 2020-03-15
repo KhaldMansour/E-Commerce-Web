@@ -53,7 +53,7 @@ function startPage()
 
         var imgElement = document.createElement("img");
         imgElement.setAttribute("src" , src);
-        imgElement.setAttribute("href" , `product-detail.html/${json.data[i].ProductId}` );
+        imgElement.setAttribute("href" , `product-detail.html?${json.data[i].ProductId}` );
 
 
     
@@ -72,7 +72,7 @@ function startPage()
 
              var link = document.createElement("a");
              link.setAttribute ("class" , "flex-c-m size2 m-text2 bg3 hov1 trans-0-4");
-             link.setAttribute("href" , `product-detail.html/${json.data[i].ProductId}` );
+             link.setAttribute("href" , "product-detail.html?id="+json.data[i].ProductId );
              link.innerHTML = name;
 
              div3.appendChild(link);
