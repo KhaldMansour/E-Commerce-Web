@@ -84,6 +84,12 @@ function startPage()
              div1.appendChild(div2);
 
              append.appendChild(div1);
+
+             var addCartBtn = document.createElement("a");
+             addCartBtn.setAttribute ("class" , "flex-c-m size2 m-text2 bg3 hov1 trans-0-4");
+             addCartBtn.setAttribute("href" , `cart.html/?${json.data[i].ProductId}` );
+             addCartBtn.innerHTML= "ADD TO CART";
+             div3.appendChild(addCartBtn);
     
     
         }
