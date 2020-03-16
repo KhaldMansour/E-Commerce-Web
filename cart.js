@@ -1,6 +1,7 @@
 const append = document.getElementById('append');
 const viewBtn = document.getElementById('view');
 const totalPrice = document.getElementById('total');
+const checkout = document.getElementById('checkout');
 var db;
 var db_v = 1;
 var db_n ="cart";
@@ -111,3 +112,24 @@ viewBtn.addEventListener('click', (ev ) => {
 
 
 totalPrice.innerHTML= total;
+
+
+
+checkout.addEventListener('click' , (ev) =>{
+
+
+    if (db instanceof IDBDatabase) {
+        // myId= parseInt(idToDelete.value);
+
+        const tx = db.transaction(db_n, 'readwrite');
+        const cart_products = tx.objectStore(db_n);  
+        cart_products.deleteAll(
+         
+         
+        );
+        
+        
+    }
+});
+
+});
