@@ -103,6 +103,7 @@ addBtn.addEventListener('click', (ev) => {
             pId: myParam
         });
     }
+    alert("Item added to Cart");
 });
 
 
