@@ -69,7 +69,7 @@ function openDB()
         request.onupgradeneeded = (e) =>
     {
         db = e.target.result;
-        alert ("upgraded");
+        // alert ("upgraded");
         
         if (!db.objectStoreNames.contains(db_n))
         {
