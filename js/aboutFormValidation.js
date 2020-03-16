@@ -63,10 +63,6 @@ form.addEventListener( 'submit', (e)=>{
             messageContent : message
         }
         
-        // messageJSON = JSON.stringify(messageData);
-        // console.log(messageJSON);
-        // form.reset();
-        messageSent.style.display="block";
         
         fetch('https://afternoon-falls-30227.herokuapp.com/api/v1/contact_us', {
             method: 'POST',
@@ -77,15 +73,19 @@ form.addEventListener( 'submit', (e)=>{
                 subject: subject,
                 message:message,
             })}).then(function (response) {
-            return response.json();
+                return response.json();
         }).then(function (result) {
-            // console.log(text);
-            console.log(result);
+            form.reset();            
+            messageSent.innerHTML = result.message;
+            messageSent.style.display="block";
+
             
-        }).then(function (result){
-            location.reload();
         }).catch(function (error) {
-            console.log(error);
+            console.log("there is error");  
+            messageSent .innerHTML = "Error try again !";
+            form.reset()
+            messageSent.style.color = "red";
+            messageSent.style.display="block";
         });
     }
 
