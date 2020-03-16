@@ -96,6 +96,7 @@ function startPage(pageN)
 pagination.innerHTML = pageN ;
 
 
+
 next.addEventListener('click', (e) =>{
 
     append.innerHTML="";
@@ -109,11 +110,16 @@ next.addEventListener('click', (e) =>{
 
 
 
-
+// if(pageN==1){
+//     prev.style.visibility="hidden";
+// }
+// else{
+//     prev.style.visibility="visible";
+// }
 
 
         prev.addEventListener('click', (e) =>{
-   
+          
             append.innerHTML="";
             pageN--;
             startPage(pageN);
