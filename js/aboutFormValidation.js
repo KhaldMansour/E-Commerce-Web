@@ -50,11 +50,12 @@ function validateForm(){
 form.addEventListener( 'submit', (e)=>{
     
     e.preventDefault();
+
     messageSent.style.display="none";
     let isValidateForm = validateForm();
     if(isValidateForm){
         console.log("vaild");
-        
+
         messageData= {
             userName : name,
             userEmail : email,
@@ -62,10 +63,30 @@ form.addEventListener( 'submit', (e)=>{
             messageContent : message
         }
         
-        messageJSON = JSON.stringify(messageData);
-        console.log(messageJSON);
-        form.reset();
-        messageSent.style.display="block";
+        
+        fetch('https://afternoon-falls-30227.herokuapp.com/api/v1/contact_us', {
+            method: 'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                subject: subject,
+                message:message,
+            })}).then(function (response) {
+                return response.json();
+        }).then(function (result) {
+            form.reset();            
+            messageSent.innerHTML = result.message;
+            messageSent.style.display="block";
+
+            
+        }).catch(function (error) {
+            console.log("there is error");  
+            messageSent .innerHTML = "Error try again !";
+            form.reset()
+            messageSent.style.color = "red";
+            messageSent.style.display="block";
+        });
     }
 
 }); 
