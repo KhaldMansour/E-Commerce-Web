@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('id');
+var myParam = urlParams.get('id');
 
 console.log(myParam);
 
@@ -17,7 +17,7 @@ var db_n ="cart";
 var stote;
 var index;
 
-var x = "kkk";
+// var x = "kkk";
 
 const xml = new XMLHttpRequest();
 

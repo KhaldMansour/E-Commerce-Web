@@ -1,96 +1,33 @@
-const xhr = new XMLHttpRequest();
 
-xml.open('GET', 'https://afternoon-falls-30227.herokuapp.com/api/v1/products/?page=3');
-xml.send();
+var db;
+var db_v = 1;
+var db_n ="cart";
+var stote;
+var index;
 
-xml.onload = () =>
-    {
-        console.log('onload');
-        console.log(xml.status);
-        if(xml.status === 200)
-        {
-            console.log(typeof(xml.response));
-            var json = JSON.parse(xml.response);
-            console.log(json);
-            console.log(xml.response);
-        }
-    }
 
-const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('myParam');
-console.log(myParam);
+const viewBtn = document.getElementById('view');
+viewBtn.addEventListener('click', (ev) => {
+    console.log(IDBDatabase);
 
-window.indexedDB = window.indexedDB || 
-                   window.mozIndexedDB || 
-                   window.webkitIndexedDB ||
-                   window.msIndexedDB;
+    
+    if (db instanceof IDBDatabase) {
+        console.log("hi");
 
-if (!window.indexedDB){
-    alert('not supported');
-}
-
-let request = window.indexedDB.open("cartDB",1),
-    db,             //databse
-    tx,             //transaction
-    store,          //finds the structure for the data             
-    index;          //if i want to access something else other than the id
-
-request.onupgradeneeded = (e)=>{
-    let db = request.result,
-    store = db.createObjectStore("CartStore",{keyPath: "prodID"}),
-    // store = db.createObjectStore("CartStore",{autoIncrement: true});
-    index = store.createIndex("prodName","prodName",{unique: false});
-};
-
-request.onerror = (e)=>{
-    console.log("There was an error: "+ e.target.errorCode);
-};
-
-request.onsuccess = (e)=>{
-    db = request.result;
-    tx = db.transaction("CartStore","readwrite");
-    store = tx.objectStore("CartStore");
-    index = store.index("prodName");
-
-    db.onerror = (e)=>{
-        console.log("ERROR" + e.target.errorCode);
-    }
-
-    let addToCartBtn = document.getElementById('addToCart');
-
-    addToCartBtn.addEventListener('click',(ev)=>{
+        const tx = db.transaction(db_n, 'readwrite');
+        const cart_products = tx.objectStore(db_n);  
         
-    })
+        // viewDiv.innerHTML="";
 
-    /*to insert data*/
-
-    // store.put({prodID: 1,
-    //            prodName: "laptop", 
-    //            pic: true, 
-    //            price: 520$});
-
-    // store.put({prodID: 2,
-    //            prodName: "iphone", 
-    //            pic: true, 
-    //            price: 700$});
-
-    /*to retrieve data*/
-
-    // let q1 = store.get(1);                      //retrieving data by store
-    // let qs = index.get("iphone");               //retrieving data by index
-
-    // q1.onsuccess = function(){
-    //     console.log(q1.result);
-    //     console.log(q1.result.prodName);
-    // };
-
-    // qs.onsuccess = function(){
-    //     console.log(qs.result.prodName);
-    // };
-
-    tx.oncomplete = ()=>{
-        db.close();
-    };
-
-};
-
+        cart_products.getAll().onsuccess = (ev)=>{
+            console.log(ev.target.result);
+            const result = ev.target.result;
+            result.forEach(el => {
+                console.log(el.title);
+                 
+            });
+        }
+        
+        
+    }
+});

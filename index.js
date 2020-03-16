@@ -1,30 +1,22 @@
 const xml = new XMLHttpRequest();
 const append = document.getElementById('append');
 const next = document.getElementById('next');
+const prev = document.getElementById('prev');
+const pagination = document.getElementById('pageNo');
+
+
+var pageN = 1;
+
 
 // console.log(append);
 
-startPage();
+startPage(pageN);
 
-// xml.onreadystatechange = function()
-// {
-//     if(this.readyState == 4 && this.status == 200)
 
-//      {
-//         let res = JSON.parse(this.response);
-//         for(let i = 0; i < res.total_pages; ++i)
-//         {
-//             next.addEventListener('click', function (ev)
-//              {
-//                 startPage(i + 1);
-//             });
-//         };
-//     };
-// };
 
-function startPage()
+function startPage(pageN)
 {
-    xml.open('GET', 'https://afternoon-falls-30227.herokuapp.com/api/v1/products/?page=3');
+    xml.open('GET', 'https://afternoon-falls-30227.herokuapp.com/api/v1/products/?page='+ pageN);
     xml.send();
 
 
@@ -85,11 +77,11 @@ function startPage()
 
              append.appendChild(div1);
 
-             var addCartBtn = document.createElement("a");
-             addCartBtn.setAttribute ("class" , "flex-c-m size2 m-text2 bg3 hov1 trans-0-4");
-             addCartBtn.setAttribute("href" , `cart.html/?${json.data[i].ProductId}` );
-             addCartBtn.innerHTML= "ADD TO CART";
-             div3.appendChild(addCartBtn);
+            //  var addCartBtn = document.createElement("a");
+            //  addCartBtn.setAttribute ("class" , "flex-c-m size2 m-text2 bg3 hov1 trans-0-4");
+            //  addCartBtn.setAttribute("href" , `cart.html/?${json.data[i].ProductId}` );
+            //  addCartBtn.innerHTML= "ADD TO CART";
+            //  div3.appendChild(addCartBtn);
     
     
         }
@@ -99,4 +91,41 @@ function startPage()
 
 
 }
+
+
+pagination.innerHTML = pageN ;
+
+
+next.addEventListener('click', (e) =>{
+
+    append.innerHTML="";
+    pageN++;
+    startPage(pageN);
+    pagination.innerHTML = pageN ;
+
+    console.log(pageN);
+
+});
+
+
+
+
+
+
+        prev.addEventListener('click', (e) =>{
+   
+            append.innerHTML="";
+            pageN--;
+            startPage(pageN);
+            pagination.innerHTML = pageN ;
+
+            
+            
+        
+        });
+
+
+        
+
+
 
