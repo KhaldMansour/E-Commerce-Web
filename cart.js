@@ -1,13 +1,13 @@
 const append = document.getElementById('append');
 const viewBtn = document.getElementById('view');
-const totalPrice = document.getElementById('total');
+// const totalPrice = document.getElementById('total');
+const checkoutBtn = document.getElementById('checkout');
 var db;
 var db_v = 1;
 var db_n ="cart";
 var stote;
 var index;
 var total;
-
 
 
 function submit()
@@ -30,10 +30,9 @@ function openDB()
 };
 
 
-viewBtn.addEventListener('click', (ev ) => {
-    console.log(db);
 
-    
+viewBtn.addEventListener('click', (ev ) => {
+    // console.log(db);
 
     if (db instanceof IDBDatabase) {
         const tx = db.transaction(db_n, 'readwrite');
@@ -91,23 +90,46 @@ viewBtn.addEventListener('click', (ev ) => {
                 </div>
             </td>
             <td class="column-2">${pName}</td>
-            <td class="column-3">${pPrice}</td>
-           
-            <td class="column-5">${pPrice}</td>
-            
+            <td class="column-3">${pPrice}$</td>            
             `
+            // totalPrice.innerHTML= total;
+
             function appendAfter(el, referenceNode) {
                 referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
             };
             appendAfter(tr ,append);
-                    }
-               
+                    }      
             });
-        }
-        
-        
+        }   
+        viewBtn.disabled = true;     
     }
 });
 
+checkoutBtn.addEventListener('click',(ev)=>{
+    // IDBObjectStore.clear;
+    // Let us open our database
+    var DBOpenRequest = window.indexedDB.open(db_n, 1);
 
-totalPrice.innerHTML= total;
+    DBOpenRequest.onsuccess = function(event) {
+
+        db = DBOpenRequest.result;
+        clearData();
+
+    };
+
+function clearData() {
+    var transaction = db.transaction(db_n, 'readwrite');
+
+    transaction.onerror = function(event) {
+        console.log("Error occured");
+    };
+    var objectStore = transaction.objectStore(db_n);
+    var objectStoreRequest = objectStore.clear();
+
+    objectStoreRequest.onsuccess = function(event) {
+        console.log("success");
+    };
+};
+    alert('Your order will be delievered to your address\nThank you for visiting our website');
+});
+
