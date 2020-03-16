@@ -1,7 +1,12 @@
 const append = document.getElementById('append');
 const viewBtn = document.getElementById('view');
+<<<<<<< HEAD
 // const totalPrice = document.getElementById('total');
 const checkoutBtn = document.getElementById('checkout');
+=======
+const totalPrice = document.getElementById('total');
+const checkout = document.getElementById('checkout');
+>>>>>>> dbcfafd37d903ec890983440b4251d2ed75a61e1
 var db;
 var db_v = 1;
 var db_n ="cart";
@@ -133,3 +138,28 @@ function clearData() {
     alert('Your order will be delievered to your address\nThank you for visiting our website');
 });
 
+<<<<<<< HEAD
+=======
+totalPrice.innerHTML= total;
+
+
+
+checkout.addEventListener('click' , (ev) =>{
+
+
+    if (db instanceof IDBDatabase) {
+        // myId= parseInt(idToDelete.value);
+
+        const tx = db.transaction(db_n, 'readwrite');
+        const cart_products = tx.objectStore(db_n);  
+        cart_products.deleteAll(
+         
+         
+        );
+        
+        
+    }
+});
+
+});
+>>>>>>> dbcfafd37d903ec890983440b4251d2ed75a61e1
